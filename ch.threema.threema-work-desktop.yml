@@ -72,6 +72,9 @@ modules:
       # Generate and install metadata.
       - pnpm --filter ./apps/desktop run generate:flatpak-metadata work-live build/flatpak-metadata
       - install -Dm644 build/flatpak-metadata/ch.threema.threema-work-desktop.metainfo.xml /app/share/metainfo/ch.threema.threema-work-desktop.metainfo.xml
+      # The metainfo references the releases with `<releases type="external" />`, which AppStream
+      # loads from `share/metainfo/releases/<app-id>.releases.xml`.
+      - install -Dm644 build/flatpak-metadata/releases/ch.threema.threema-work-desktop.releases.xml /app/share/metainfo/releases/ch.threema.threema-work-desktop.releases.xml
       - install -Dm644 build/flatpak-metadata/ch.threema.threema-work-desktop.desktop /app/share/applications/ch.threema.threema-work-desktop.desktop
       # Install Icons.
       - mkdir -p /app/share/icons/hicolor/{512x512,scalable}/apps/
@@ -81,8 +84,8 @@ modules:
       # Project source code.
       - type: git
         url: https://github.com/threema-ch/threema-desktop.git
-        commit: 'a031f7ba8e6c19855643e723e893c13de7fa4473'
-        tag: v2.0-beta67-flathub
+        commit: '92650641a09d57e11b7e6a7842add315b6f53b3d'
+        tag: v2.0-beta68
       # Node dependencies, updated with `flatpak_node_generator`.
       - generated-pnpm-sources.json
       # Rust dependencies for the launcher and libthreema, updated with `flatpak-cargo-generator`.
